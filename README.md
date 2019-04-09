@@ -1,2 +1,2 @@
 # kicker
-table football
+table football elo ranking
