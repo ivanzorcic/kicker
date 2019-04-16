@@ -1,5 +1,8 @@
 package de.zorcic.entity;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -53,10 +56,12 @@ public class EloScores {
 
     private int calculateElo(int scoreTeam1, int team1elo, int team2elo) {
         // https://play.eslgaming.com/archive/esl-europe/de/faq/1863/
-        double wPercent = scoreTeam1 * 0.05;
-        double exponent = -1.0 * (team1elo - team2elo) / 400.0; // -(R-Rother)/C2
-        double e = 1.0 / (1.0 + Math.pow(10, exponent)); // E = 1/(1+10^(-(R-Rother)/C2))
-        return (int) Math.round(50.0 * (wPercent - e));
+        BigDecimal wPercent = new BigDecimal(scoreTeam1).multiply(new BigDecimal("0.05"));
+        BigDecimal exponent = new BigDecimal("-1").multiply(new BigDecimal(team1elo - team2elo)).divide(new BigDecimal("400")); // -(R-Rother)/C2
+        double doubleUsed = Math.pow(10, exponent.doubleValue());
+        BigDecimal e = BigDecimal.ONE.divide(BigDecimal.ONE.add(BigDecimal.valueOf(doubleUsed)), MathContext.DECIMAL128); // E = 1/(1+10^(-(R-Rother)/C2))
+        BigDecimal result = new BigDecimal("50").multiply(wPercent.subtract(e)); //  C1 * ( W - E )
+        return result.setScale(0, RoundingMode.HALF_UP).intValueExact();
     }
 
     public static void main(String... args) {
@@ -64,10 +69,14 @@ public class EloScores {
         System.out.println(test.calculateElo(20, 1000, 1000));
         System.out.println(test.calculateElo(0, 1000, 1000));
         System.out.println(test.calculateElo(20, 900, 1200));
+        System.out.println(test.calculateElo(0, 1200, 900));
+        System.out.println(test.calculateElo(20, 1200, 900));
         System.out.println(test.calculateElo(0, 900, 1200));
         System.out.println(test.calculateElo(10, 1000, 1000));
         System.out.println(test.calculateElo(10, 800, 800));
         System.out.println(test.calculateElo(10, 1200, 1200));
+        System.out.println(test.calculateElo(13, 1000, 1000));
+        System.out.println(test.calculateElo(7, 1000, 1000));
     }
 
 }
