@@ -44,7 +44,7 @@ public class Game {
 
     private void validate() {
         if (LongStream.of(team1Player1.getId(), team1Player2.getId(), team2Player1.getId(), team2Player2.getId()).distinct().count() != 4) {
-            throw new KickerException("players should be unique: " + team1Player1.getName() + " " + team1Player2.getId() + " " + team2Player1.getId() + " " + team2Player2.getId());
+            throw new KickerException("players should be unique: " + team1Player1.getName() + " " + team1Player2.getName() + " " + team2Player1.getName() + " " + team2Player2.getName());
         }
         if (scoreTeam1Game1 > 10 || scoreTeam1Game2 > 10 || scoreTeam1Game1 < 0 || scoreTeam1Game2 < 0) {
             throw new KickerException("score should be between 0 and 10, but is: " + scoreTeam1Game1 + " and " + scoreTeam1Game2);

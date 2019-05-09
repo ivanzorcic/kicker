@@ -1,5 +1,3 @@
-import baseUrl from "./baseUrl.js";
-
 export default class KickerGamesList extends HTMLElement {
     constructor() {
         super();
@@ -25,7 +23,7 @@ export default class KickerGamesList extends HTMLElement {
     }
 
     connectedCallback() {
-        fetch(baseUrl + "/games")
+        fetch("/games")
             .then(response => response.json())
             .then(games => this.renderGames(games));
     }

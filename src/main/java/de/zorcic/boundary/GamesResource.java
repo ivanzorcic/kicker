@@ -5,7 +5,7 @@ import de.zorcic.entity.NewGameEvent;
 import de.zorcic.entity.Player;
 import de.zorcic.entity.Ranking;
 import java.time.format.DateTimeFormatter;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -14,11 +14,13 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
-@Stateless
+@Transactional
+@RequestScoped
 @Path("games")
 public class GamesResource {
     

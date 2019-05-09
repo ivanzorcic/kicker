@@ -1,14 +1,12 @@
 package de.zorcic.entity;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Startup
-@Singleton
+@ApplicationScoped
 public class Ranking {
 
     EloScores eloScores;

@@ -1,5 +1,3 @@
-import baseUrl from "./baseUrl.js";
-
 export default class KickerNewPlayer extends HTMLElement {
     constructor() {
         super();
@@ -18,7 +16,7 @@ export default class KickerNewPlayer extends HTMLElement {
         if (!name || name.trim().length == 0) {
             alert("no name set: '" + name + "'");
         } else {
-            fetch(baseUrl + "/players", {
+            fetch("/players", {
                 method: 'POST',
                 body: name,
                 headers: {
@@ -28,9 +26,9 @@ export default class KickerNewPlayer extends HTMLElement {
                 if (response.ok) {
                     location.reload();
                 } else {
-                    console.log("lala")
                     response.json()
-                        .then(json => alert(name + " was not added. Try again. \n" + json ? "" : ""));
+                            .then(json => alert(name + " was not added. Try again. \n" + (json ? json.kickerException : "")))
+                            .catch(_ => alert(name + " was not added. Try again."));
                 }
             }).catch(_ => alert(name + " was not added. Try again."));
         }

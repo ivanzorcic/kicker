@@ -1,1 +1,0 @@
-export default window.location.host === "localhost:3000" ? "http://localhost:8080/kicker/resources" : "/kicker/resources";
