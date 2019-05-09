@@ -1,5 +1,3 @@
-import baseUrl from "./baseUrl.js";
-
 export default class KickerAddGame extends HTMLElement {
     constructor() {
         super();
@@ -11,7 +9,7 @@ export default class KickerAddGame extends HTMLElement {
     }
 
     connectedCallback() {
-        fetch(baseUrl + "/players")
+        fetch("/players")
             .then(response => response.json())
             .then(players => this.init(players));
     }
@@ -85,7 +83,7 @@ export default class KickerAddGame extends HTMLElement {
         if (!newGame.team1Player1 || !newGame.team1Player2 || !newGame.team2Player1 || !newGame.team2Player2 || !newGame.team1ScoreGame1 || !newGame.team1ScoreGame2) {
             alert("select players and results");
         } else {
-            fetch(baseUrl + "/games", {
+            fetch("/games", {
                 method: 'POST',
                 body: JSON.stringify(newGame),
                 headers: {

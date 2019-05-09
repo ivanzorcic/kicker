@@ -1,5 +1,3 @@
-import baseUrl from "./baseUrl.js";
-
 export default class KickerRanking extends HTMLElement {
     constructor() {
         super();
@@ -22,7 +20,7 @@ export default class KickerRanking extends HTMLElement {
     }
 
     connectedCallback() {
-        fetch(baseUrl + "/ranking")
+        fetch("/ranking")
             .then(response => response.json())
             .then(ranking => this.renderRanking(ranking));
     }

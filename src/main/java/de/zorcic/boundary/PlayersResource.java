@@ -2,16 +2,18 @@ package de.zorcic.boundary;
 
 import de.zorcic.KickerException;
 import de.zorcic.entity.Player;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.json.JsonArray;
 import javax.json.stream.JsonCollectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
-@Stateless
+@Transactional
+@RequestScoped
 @Path("players")
 public class PlayersResource {
 

@@ -4,7 +4,7 @@ import de.zorcic.entity.Player;
 import de.zorcic.entity.Ranking;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -12,11 +12,16 @@ import javax.json.JsonObject;
 import javax.json.stream.JsonCollectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-@Stateless
+@Transactional
+@RequestScoped
 @Path("ranking")
+@Produces(MediaType.APPLICATION_JSON)
 public class RankingResource {
 
     @Inject
