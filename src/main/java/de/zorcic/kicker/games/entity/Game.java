@@ -1,6 +1,5 @@
-package de.zorcic.entity;
+package de.zorcic.kicker.games.entity;
 
-import de.zorcic.KickerException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.stream.LongStream;
@@ -8,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import de.zorcic.kicker.KickerException;
+import de.zorcic.kicker.players.entity.Player;
+import java.time.format.DateTimeFormatter;
+import javax.json.Json;
+import javax.json.JsonObject;
 
 @Entity
 @NamedQuery(name = "Game.findAllSorted", query = "SELECT g from Game as g ORDER BY g.addedAt ASC")
@@ -81,6 +85,21 @@ public class Game {
 
     public LocalDateTime getAddedAt() {
         return addedAt;
+    }
+
+    public JsonObject toJson(String eloTeam1, String eloTeam2) {
+        return Json.createObjectBuilder()
+                .add("team1Player1", team1Player1.getName())
+                .add("team1Player2", team1Player2.getName())
+                .add("team2Player1", team2Player1.getName())
+                .add("team2Player2", team2Player2.getName())
+                .add("team2Player2", team2Player2.getName())
+                .add("scoreGame1", scoreTeam1Game1 + ":" + (10 - scoreTeam1Game1))
+                .add("scoreGame2", scoreTeam1Game2 + ":" + (10 - scoreTeam1Game2))
+                .add("eloTeam1", eloTeam1)
+                .add("eloTeam2", eloTeam2)
+                .add("date", addedAt.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")))
+                .build();
     }
 
 }

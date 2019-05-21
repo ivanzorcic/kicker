@@ -1,4 +1,4 @@
-package de.zorcic;
+package de.zorcic.kicker;
 
 import javax.json.Json;
 import javax.ws.rs.WebApplicationException;

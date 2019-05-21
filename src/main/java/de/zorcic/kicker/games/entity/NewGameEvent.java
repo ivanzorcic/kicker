@@ -1,4 +1,4 @@
-package de.zorcic.entity;
+package de.zorcic.kicker.games.entity;
 
 import java.util.UUID;
 

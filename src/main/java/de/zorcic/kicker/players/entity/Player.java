@@ -1,7 +1,5 @@
-package de.zorcic.entity;
+package de.zorcic.kicker.players.entity;
 
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,13 +30,6 @@ public class Player {
 
     public String getName() {
         return name;
-    }
-
-    public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("name", name)
-                .add("id", id)
-                .build();
     }
 
 }
